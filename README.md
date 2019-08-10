@@ -19,3 +19,4 @@ RecyclerView通用适配器
         //添加数据源
         recyclerAdapter.refreshData(list);
 ```
+使用时：导入recycleryadapter模块
