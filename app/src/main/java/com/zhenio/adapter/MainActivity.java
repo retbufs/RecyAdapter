@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zhenio.recycleryadapter.RecyclerAdapter;
 import com.zhenio.recycleryadapter.RecyclerHolder;
@@ -68,6 +69,13 @@ public class MainActivity extends AppCompatActivity {
         public void setData(View view, String data, int position) {
             TextView viewById = view.findViewById(R.id.text);
             viewById.setText(data);
+
+            viewById.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(MainActivity.this, "点击了text内容", Toast.LENGTH_SHORT).show();
+                }
+            });
 
         }
     }
