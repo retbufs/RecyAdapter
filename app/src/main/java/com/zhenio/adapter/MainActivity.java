@@ -1,5 +1,6 @@
 package com.zhenio.adapter;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,23 +27,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mRecycler = findViewById(R.id.rec_content);
         initData();
-        recyclerAdapter = new RecyclerAdapter<String>(this, new RecyclerAdapter.RecyclerCallback<String>() {
-            @Override
-            public RecyclerHolder<String> creator(RecyclerAdapter<String> adapter, ViewGroup view, int position) {
-                //这里加载布局文件
-                return new RecyclerHolder<String>(adapter.getView(R.layout.text_layout, view)) {
-                    @Override
-                    public void setData(View view, String data, int position) {
-                        TextView textView = view.findViewById(R.id.text);
-                        textView.setText(data);
-                    }
-                };
-            }
-        });
-        mRecycler.setLayoutManager(new LinearLayoutManager(this));
-        mRecycler.setAdapter(recyclerAdapter);
-        //添加数据源
-        recyclerAdapter.refreshData(list);
+        //第一种使用方式
+//        recyclerAdapter = new RecyclerAdapter<String>(this, new RecyclerAdapter.RecyclerCallback<String>() {
+//            @Override
+//            public RecyclerHolder<String> creator(RecyclerAdapter<String> adapter, ViewGroup view, int position) {
+//                //这里加载布局文件
+//                return new RecyclerHolder<String>(adapter.getView(R.layout.text_layout, view)) {
+//                    @Override
+//                    public void setData(View view, String data, int position) {
+//                        TextView textView = view.findViewById(R.id.text);
+//                        textView.setText(data);
+//                    }
+//                };
+//            }
+//        });
+//        mRecycler.setLayoutManager(new LinearLayoutManager(this));
+//        mRecycler.setAdapter(recyclerAdapter);
+//        //添加数据源
+//        recyclerAdapter.refreshData(list);
+
+        //第二种使用方式：通过继承来实现
 
     }
 
@@ -53,5 +57,18 @@ public class MainActivity extends AppCompatActivity {
         list.add("深圳");
         list.add("武汉");
         list.add("杭州");
+    }
+
+    class TextRecyclerViewHolder extends RecyclerHolder<String> {
+        public TextRecyclerViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+
+        @Override
+        public void setData(View view, String data, int position) {
+            TextView viewById = view.findViewById(R.id.text);
+            viewById.setText(data);
+
+        }
     }
 }
